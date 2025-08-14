@@ -12,11 +12,11 @@ git checkout 4941509f573676c4678115a0a3a743ef78b63c17
 cd ..
 git clone https://github.com/brudalevante/mtk-openwrt-6.6.99.git mtk-openwrt-feeds || true
 cd mtk-openwrt-feeds
-git checkout 31c492d5c761176fcb15a3099f30d846450c01f5
+git checkout 39d725c3e3b486405e6148c8466111ef13516808
 cd ..
 
 echo "==== 3. PREPARA FEEDS Y CONFIGURACIONES BASE ===="
-echo "31c492" > mtk-openwrt-feeds/autobuild/unified/feed_revision
+echo "39d725" > mtk-openwrt-feeds/autobuild/unified/feed_revision
 
 cp -r my_files/w-autobuild.sh mtk-openwrt-feeds/autobuild/unified/autobuild.sh
 cp -r my_files/w-rules mtk-openwrt-feeds/autobuild/unified/filogic/rules
@@ -31,7 +31,7 @@ cp -r my_files/99999_tx_power_check.patch mtk-openwrt-feeds/autobuild/unified/fi
 cp -r my_files/999-2764-net-phy-sfp-add-some-FS-copper-SFP-fixes.patch openwrt/target/linux/mediatek/patches-6.6/
 
 echo "==== 5. CLONA Y COPIA PAQUETES PERSONALIZADOS ===="
-git clone --depth=1 --single-branch --branch main https://github.com/brudalevante/dawn.git tmp_comxwrt
+git clone --depth=1 --single-branch --branch main https://github.com/brudalevante/fakemesh-6g.git tmp_comxwrt
 cp -rv tmp_comxwrt/luci-app-fakemesh openwrt/package/
 cp -rv tmp_comxwrt/luci-app-autoreboot openwrt/package/
 cp -rv tmp_comxwrt/luci-app-cpu-status openwrt/package/
@@ -54,10 +54,10 @@ rm -rf feeds/
 cat feeds.conf.default
 
 echo "==== 8. COPIA LA CONFIGURACIÃ“N BASE (mm_perf.config) ===="
-cp -v ../configs/mm_perf.config .config
+cp -v ../configs/config_mm_06082025 .config
 
 echo "==== 9. COPIA TU CONFIGURACIÃ“N PERSONALIZADA AL DEFCONFIG DEL AUTOBUILD ===="
-cp -v ../configs/mm_perf.config ../mtk-openwrt-feeds/autobuild/unified/filogic/24.10/defconfig
+cp -v ../configs/config_mm_06082025 .config ../mtk-openwrt-feeds/autobuild/unified/filogic/24.10/defconfig
 
 echo "==== 10. ACTUALIZA E INSTALA FEEDS ===="
 ./scripts/feeds update -a
